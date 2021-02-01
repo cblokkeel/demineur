@@ -10,6 +10,7 @@ int est_une_mine(int ligne, int colonne)
 
 }
 
+
 int placer_mine(int ligne, int colonne)
 {
 
@@ -19,6 +20,7 @@ int placer_mine(int ligne, int colonne)
 	return 0;
 
 }
+
 
 int affiche_mines(void)
 {
@@ -60,6 +62,7 @@ int affiche_mines(void)
 
 }
 
+
 void print_line(void)
 {
 
@@ -80,18 +83,32 @@ void print_line(void)
 
 }
 
+
 void print_letters(void)
 {	
+
+	char c;
 
 	printf("   |");
 	for (int i = 0; i < NB_COLONNES; i++)
 	{
-		char c = i + 97;
+		c = i + 97;
 		printf("| %c ", c);
 	}
 	printf("|\n");
 
 }
+
+
+int combien_de_mine_autour(int ligne, int colonne)
+{
+
+	int position = get_position();
+
+
+
+}
+
 
 int get_position(int ligne, int colonne)
 {
