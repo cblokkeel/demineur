@@ -81,12 +81,16 @@ int affiche_terrain(void)
 int revelation_du_terrain(int ligne, int colonne)
 {
 
-	how_many_discovered++;
-
+	int how_many_mine;
+	char char_how_many_mine;
 	int position = get_position(ligne, colonne);
-	int how_many_mine = combien_de_mine_autour(ligne, colonne);
-	char char_how_many_mine = how_many_mine + '0';
+
+	how_many_mine = combien_de_mine_autour(ligne, colonne);
+
+	char_how_many_mine = how_many_mine + '0';
+
 	terrain[position] = char_how_many_mine;
+	how_many_discovered++;
 
 	affiche_terrain();
 

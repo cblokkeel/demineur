@@ -64,22 +64,13 @@ int affiche_mines(void)
 
 void print_line(void)
 {
-
-	int size = NB_COLONNES * 4 + 1;
-	char line[size];
-
-	for (int i = 0; i < size; i++)
-	{	
-		line[i] = '+';
-		for (int j = i; j < i + 3; j++)
-		{
-			line[j] = '-';
-		}
+	printf("---+");
+	for (int i = 0; i < NB_COLONNES; i++)
+	{
+		i == NB_COLONNES - 1 ? printf("+---+") : printf("+---");
 	}
 
-	printf("---+");
-	printf("%s\n", line);
-
+	printf("\n");
 }
 
 
