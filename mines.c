@@ -5,7 +5,6 @@ int est_une_mine(int ligne, int colonne)
 {
 
 	int position = get_position(ligne, colonne);
-
 	return mines[position];
 
 }
@@ -51,7 +50,6 @@ int affiche_mines(void)
 		// vérifie si on est au bout de la ligne, si oui on affiche | i | sinon juste | i
 		(i + 1) % NB_COLONNES == 0 ? printf("| %i |", mines[i]) : printf("| %i ", mines[i]);
 
-
 	}
 	printf("\n");
 	print_line();
@@ -64,6 +62,7 @@ int affiche_mines(void)
 
 void print_line(void)
 {
+
 	printf("---+");
 	for (int i = 0; i < NB_COLONNES; i++)
 	{
@@ -71,6 +70,7 @@ void print_line(void)
 	}
 
 	printf("\n");
+
 }
 
 
@@ -110,10 +110,10 @@ int combien_de_mine_autour(int ligne, int colonne)
 	+ nombre de col SAUF si dernière ligne 
 	- 1 SAUF si première colonne
  	+ 1 SAUF si dernière colonne
- 	- nombre de col + 1 SAUF si dernière colonne
- 	- nombre de col - 1 SAUF si première colonne
- 	+ nombre de col + 1 SAUF si dernière colonne
-  	+ nombre de col - 1 SAUF si première colonne
+ 	- nombre de col + 1 SAUF si dernière colonne && dernière ligne
+ 	- nombre de col - 1 SAUF si première colonne && première ligne
+ 	+ nombre de col + 1 SAUF si dernière colonne && dernière ligne
+  	+ nombre de col - 1 SAUF si première colonne && première ligne
 
 	*/
 
@@ -174,4 +174,63 @@ int get_position(int ligne, int colonne)
 
 	return (ligne - 1) * NB_COLONNES + (colonne - 1);
 
+}
+
+int place_random_mines(int nb_mines)
+{
+
+	int seed = demande_entier();
+	int already_placed[nb_mines][2];
+	int random;
+	int pair[2];
+	int random_colonne;
+	int random_ligne;
+
+	printf("Graine: \n");
+	srand(seed);
+
+	for (int i = 0; i < nb_mines; i++)
+	{
+		do 
+		{
+			random_ligne = rand()%NB_LIGNES;
+			random_colonne = rand()%NB_COLONNES;
+			pair[0] = random_ligne;
+			pair[1] = random_colonne;
+		}
+		while (check_2d_array(already_placed, pair));
+
+		already_placed[i] = pair;
+	}
+
+}
+
+_Bool check_2d_array(int array[][], int seek[])
+{
+	int length = sizeof array / sizeof array[0];
+
+	for (int i = 0; i < length; i++)
+	{
+		if (check_value(array[i], seek))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+_Bool check_value(int array[], int seek[])
+{
+	int length = sizeof array / sizeof array[0];
+
+	for (int i = 0; i < length; i++)
+	{
+		if (array[i] == seek[i])
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

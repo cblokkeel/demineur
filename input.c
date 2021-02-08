@@ -69,3 +69,11 @@ int est_ce_fini(void)
 	return how_many_discovered == NB_LIGNES * NB_COLONNES - NB_MINES ? 1 : 0;
 
 }
+
+int demande_entier(void)
+{
+	int given_number;
+	scanf("%i", given_number);
+
+	return given_number;
+}

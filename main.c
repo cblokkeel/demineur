@@ -6,6 +6,9 @@ int how_many_discovered;
 
 int main(void)
 {
+
+	
+
 	placer_mine(2, 4);
 	placer_mine(3, 1);
 	placer_mine(4, 3);
