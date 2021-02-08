@@ -180,9 +180,6 @@ int place_random_mines(int nb_mines)
 {
 
 	int seed = demande_entier();
-	int already_placed[nb_mines][2];
-	int random;
-	int pair[2];
 	int random_colonne;
 	int random_ligne;
 
@@ -193,44 +190,15 @@ int place_random_mines(int nb_mines)
 	{
 		do 
 		{
-			random_ligne = rand()%NB_LIGNES;
 			random_colonne = rand()%NB_COLONNES;
-			pair[0] = random_ligne;
-			pair[1] = random_colonne;
+			random_ligne = rand()%NB_LIGNES;
+			printf("%i %i\n", random_ligne, random_colonne);
 		}
-		while (check_2d_array(already_placed, pair));
+		while (est_une_mine(random_ligne, random_colonne) != 0);
 
-		already_placed[i] = pair;
+		placer_mine(random_ligne, random_colonne);
 	}
 
-}
+	return 0;
 
-_Bool check_2d_array(int array[][], int seek[])
-{
-	int length = sizeof array / sizeof array[0];
-
-	for (int i = 0; i < length; i++)
-	{
-		if (check_value(array[i], seek))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-_Bool check_value(int array[], int seek[])
-{
-	int length = sizeof array / sizeof array[0];
-
-	for (int i = 0; i < length; i++)
-	{
-		if (array[i] == seek[i])
-		{
-			return true;
-		}
-	}
-
-	return false;
 }

@@ -1,6 +1,7 @@
 #include "main.h"
 extern int mines[];
 extern int how_many_discovered;
+extern int NB_MINES;
 
 char entree[10];
 
@@ -72,7 +73,7 @@ int est_ce_fini(void)
 
 int demande_entier(void)
 {
-	int given_number;
+	int given_number = 0;
 	scanf("%i", given_number);
 
 	return given_number;
