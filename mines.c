@@ -38,15 +38,14 @@ int affiche_mines(void)
 		{
 			if (i == 0)
 			{
-				printf(" %i |", i);
+				printf(" %i |", i + 1);
 			}
 			else
 			{
 				printf("\n");
 				print_line();
-				printf(" %i |", i / 4);				
+				printf(" %i |", i / NB_LIGNES + 1);				
 			}
-
 		}
 
 		// vérifie si on est au bout de la ligne, si oui on affiche | i | sinon juste | i
@@ -66,19 +65,19 @@ int affiche_mines(void)
 void print_line(void)
 {
 
-	int size = NB_COLONNES * NB_COLONNES + 5;
+	int size = NB_COLONNES * 4 + 1;
 	char line[size];
 
-	for (int i = 0; i < 4; i++)
-	{
-		line[i] = i == 3 ? '+' : '-';
+	for (int i = 0; i < size; i++)
+	{	
+		line[i] = '+';
+		for (int j = i; j < i + 3; j++)
+		{
+			line[j] = '-';
+		}
 	}
 
-	for (int i = 4; i < size; i++)
-	{
-		line[i] = i % NB_COLONNES == 0 ? '+' : '-';
-	}
-
+	printf("---+");
 	printf("%s\n", line);
 
 }
@@ -103,12 +102,73 @@ void print_letters(void)
 int combien_de_mine_autour(int ligne, int colonne)
 {
 
-	int position = get_position();
+	int position = get_position(ligne, colonne);
+	int to_check[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+	int how_many_mines = 0;
+
+	/*
+
+	[
+		n n n n
+		n n M n
+		M n n M
+		n n M n
+	]
+
+	- nombre de col SAUF si première ligne 
+	+ nombre de col SAUF si dernière ligne 
+	- 1 SAUF si première colonne
+ 	+ 1 SAUF si dernière colonne
+ 	- nombre de col + 1 SAUF si dernière colonne
+ 	- nombre de col - 1 SAUF si première colonne
+ 	+ nombre de col + 1 SAUF si dernière colonne
+  	+ nombre de col - 1 SAUF si première colonne
+
+	*/
+
+	if (position > NB_COLONNES)
+	{
+		to_check[0] = mines[position - NB_COLONNES]; 
+	}
+	if (position < NB_COLONNES * (NB_LIGNES - 1))
+	{
+		to_check[1] = mines[position + NB_COLONNES];
+	}
+	if (position % NB_COLONNES != 0) 
+	{
+		to_check[2] = mines[position - 1];
+		if (ligne > 1)
+		{
+			to_check[3] = mines[position - NB_COLONNES - 1];
+		}
+		if (ligne < NB_LIGNES)
+		{
+			to_check[4] = mines[position + NB_COLONNES - 1];
+		}
+	}
+	if ((position + 1) % NB_COLONNES != 0)
+	{
+		to_check[5] = mines[position + 1];
+		if (ligne > 1)
+		{
+			to_check[6] = mines[position - NB_COLONNES + 1];
+		}
+		if (ligne < NB_LIGNES)
+		{
+			to_check[7] = mines[position + NB_COLONNES + 1];
+		}
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		how_many_mines += to_check[i];
+	}
 
 
+
+	return how_many_mines;
 
 }
-
 
 int get_position(int ligne, int colonne)
 {

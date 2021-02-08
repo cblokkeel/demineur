@@ -4,3 +4,4 @@ int placer_mine(int ligne, int colonne);
 int affiche_mines(void);
 void print_line(void);
 void print_letters(void);
+int combien_de_mine_autour(int ligne, int colonne);

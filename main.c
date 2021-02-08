@@ -1,7 +1,8 @@
 #include "main.h"
 
 int mines[NB_LIGNES * NB_COLONNES];
-char terrain[NB_LIGNES * NB_COLONNES];	
+char terrain[NB_LIGNES * NB_COLONNES];
+int how_many_discovered;
 
 int main(void)
 {

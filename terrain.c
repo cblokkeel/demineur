@@ -1,5 +1,6 @@
 #include "main.h"
 extern char terrain[];
+extern int how_many_discovered;
 
 int initialiser_terrain(void)
 {
@@ -53,13 +54,13 @@ int affiche_terrain(void)
 		{
 			if (i == 0)
 			{
-				printf(" %i |", i);
+				printf(" %i |", i + 1);
 			}
 			else
 			{
 				printf("\n");
 				print_line();
-				printf(" %i |", i / 4);				
+				printf(" %i |", i / NB_LIGNES + 1);				
 			}
 
 		}
@@ -72,6 +73,22 @@ int affiche_terrain(void)
 	printf("\n");
 	print_line();
 	printf("\n");
+
+	return 0;
+
+}
+
+int revelation_du_terrain(int ligne, int colonne)
+{
+
+	how_many_discovered++;
+
+	int position = get_position(ligne, colonne);
+	int how_many_mine = combien_de_mine_autour(ligne, colonne);
+	char char_how_many_mine = how_many_mine + '0';
+	terrain[position] = char_how_many_mine;
+
+	affiche_terrain();
 
 	return 0;
 

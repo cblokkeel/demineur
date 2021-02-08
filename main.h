@@ -4,5 +4,6 @@
 #include "terrain.h"
 #include "input.h"
 
-#define NB_LIGNES 4
-#define NB_COLONNES 4
+#define NB_LIGNES 8
+#define NB_COLONNES 8
+#define NB_MINES 3
